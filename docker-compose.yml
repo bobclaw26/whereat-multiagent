@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  pm-agent:
+    build:
+      context: ./agents/pm
+      dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_OWNER=${GITHUB_OWNER}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - AGENT_ID=pm-agent
+    ports:
+      - "3000:3000"
+    networks:
+      - whereat-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dev-agent-1:
+    build:
+      context: ./agents/dev
+      dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_OWNER=${GITHUB_OWNER}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - AGENT_ID=dev-agent-1
+      - DEV_ROLE=backend
+    ports:
+      - "3001:3000"
+    networks:
+      - whereat-net
+    depends_on:
+      - pm-agent
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dev-agent-2:
+    build:
+      context: ./agents/dev
+      dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_OWNER=${GITHUB_OWNER}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - AGENT_ID=dev-agent-2
+      - DEV_ROLE=frontend
+    ports:
+      - "3002:3000"
+    networks:
+      - whereat-net
+    depends_on:
+      - pm-agent
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  security-agent:
+    build:
+      context: ./agents/security
+      dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_OWNER=${GITHUB_OWNER}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - AGENT_ID=security-agent
+    ports:
+      - "3003:3000"
+    networks:
+      - whereat-net
+    depends_on:
+      - pm-agent
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  qa-agent:
+    build:
+      context: ./agents/qa
+      dockerfile: Dockerfile
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_OWNER=${GITHUB_OWNER}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - AGENT_ID=qa-agent
+    ports:
+      - "3004:3000"
+    networks:
+      - whereat-net
+    depends_on:
+      - pm-agent
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  whereat-net:
+    driver: bridge
+
+volumes:
+  repo-data:
+    driver: local
