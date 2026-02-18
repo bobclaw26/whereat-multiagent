@@ -1,0 +1,15 @@
+{
+  "name": "whereat-dev-agent",
+  "version": "1.0.0",
+  "description": "Developer Agent for WhereUAt multi-agent workflow",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.0.0"
+  }
+}
