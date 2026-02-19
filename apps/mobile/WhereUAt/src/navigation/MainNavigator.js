@@ -1,20 +1,35 @@
 
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapScreen from '../screens/MapScreen';
+import FriendsListScreen from '../screens/FriendsListScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen 
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false, // Hides the header on top of the tabs
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen 
         name="Map" 
         component={MapScreen} 
-        options={{ title: 'WhereUAt' }}
+        // Add an icon here later e.g. options={{ tabBarIcon: ({ color, size }) => ... }}
       />
-      {/* Other authenticated screens like Profile, Feed, etc. will go here */}
-    </Stack.Navigator>
+      <Tab.Screen 
+        name="Friends" 
+        component={FriendsListScreen} 
+      />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen} 
+      />
+    </Tab.Navigator>
   );
 };
 
