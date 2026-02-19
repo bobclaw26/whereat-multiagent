@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback } from 'react';
 import { 
   View, 
@@ -37,11 +38,9 @@ const LoginScreen = ({ navigation }) => {
         }
       });
 
-      // Store authentication token
       await AsyncStorage.setItem('userToken', response.data.token);
       await AsyncStorage.setItem('userEmail', email);
 
-      // Navigate to main app or dashboard
       navigation.replace('Dashboard');
     } catch (error) {
       console.error('Login Error:', error);
