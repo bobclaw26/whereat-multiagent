@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapScreen from '../screens/MapScreen';
 import FriendsListScreen from '../screens/FriendsListScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import ChatListScreen from '../screens/ChatListScreen';
+import EventsScreen from '../screens/EventsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,19 +18,11 @@ const MainNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       }}
     >
-      <Tab.Screen 
-        name="Map" 
-        component={MapScreen} 
-        // Add an icon here later e.g. options={{ tabBarIcon: ({ color, size }) => ... }}
-      />
-      <Tab.Screen 
-        name="Friends" 
-        component={FriendsListScreen} 
-      />
-      <Tab.Screen 
-        name="Profile" 
-        component={ProfileScreen} 
-      />
+      <Tab.Screen name="Map" component={MapScreen} />
+      <Tab.Screen name="Friends" component={FriendsListScreen} />
+      <Tab.Screen name="Chats" component={ChatListScreen} />
+      <Tab.Screen name="Events" component={EventsScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
