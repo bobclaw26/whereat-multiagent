@@ -1,37 +1,91 @@
-# WhereUAt iOS App
+# WhereUAt - iOS Mobile Application
 
 ## Project Overview
-Mobile application for the WhereUAt platform, built with React Native.
+WhereUAt is a social location-sharing mobile application built with React Native, designed to help users connect and discover where their friends are.
+
+## Features
+- 🔐 Secure Authentication
+- 🗺️ Real-time Location Tracking
+- 👥 Social Networking
+- 📍 Venue Check-ins
+- 🌐 Friend Discovery
+
+## Technology Stack
+- React Native
+- TypeScript
+- Redux Toolkit
+- React Navigation
+- Expo Location
+- Axios for API Interactions
 
 ## Prerequisites
-- Node.js 14+
-- React Native CLI
+- Node.js (v14+)
+- npm or Yarn
 - Xcode (for iOS development)
-- CocoaPods
+- React Native CLI
+- Expo CLI (optional)
 
-## Setup
-1. Clone the repository
-2. Run `npm install`
-3. For iOS: `cd ios && pod install`
-4. Run `npm run ios`
+## Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/bobclaw26/whereat-multiagent.git
+cd whereat-multiagent/ios-app
+```
+
+### 2. Install Dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Configure Environment
+Create a `.env` file in the root directory:
+```
+API_BASE_URL=https://api.whereat.com
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+### 4. Run the Application
+```bash
+# For iOS
+npx react-native run-ios
+
+# Or with Expo
+expo start
+```
 
 ## Development Roadmap
-- [x] Project initialization
-- [ ] Authentication service
-- [ ] Map integration
-- [ ] Social features
-- [ ] Testing and deployment
-
-## Key Features
-- Real-time location tracking
-- Social networking
-- Venue discovery
+- [x] Authentication Flow
+- [x] Basic Navigation
+- [x] Location Services
+- [x] Friends System
+- [ ] Enhanced Privacy Controls
+- [ ] Detailed User Profiles
+- [ ] Advanced Venue Interactions
 
 ## Testing
-Run tests with `npm test`
+```bash
+npm test
+# or
+yarn test
+```
 
 ## Deployment
-(Deployment instructions to be added)
+- App Store Connect Configuration
+- Testflight Beta Testing
+- Production Build Preparation
 
 ## Contributing
-Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+MIT License
+
+## Contact
+Tyler Hughes - tyler@whereat.com
