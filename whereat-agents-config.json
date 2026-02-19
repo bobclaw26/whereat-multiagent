@@ -1,0 +1,140 @@
+{
+  "project": "WhereUAt",
+  "agents": [
+    {
+      "id": "pm-agent",
+      "name": "Project Manager",
+      "role": "Orchestration & Task Management",
+      "tasks": [
+        "Initialize sprint",
+        "Create GitHub project board",
+        "Manage task queue",
+        "Track progress",
+        "Generate sprint reports"
+      ],
+      "github": {
+        "permissions": ["issues:write", "projects:write"],
+        "automations": ["create-issues", "update-board", "close-completed"]
+      },
+      "container": {
+        "image": "whereat-pm:latest",
+        "ports": ["3000"],
+        "env": ["GITHUB_TOKEN", "SPRINT_NAME"]
+      }
+    },
+    {
+      "id": "dev-agent-1",
+      "name": "Developer 1",
+      "role": "Backend Development",
+      "tasks": [
+        "Build API endpoints",
+        "Database schema design",
+        "Authentication/Authorization",
+        "Data validation"
+      ],
+      "github": {
+        "permissions": ["pull_requests:write", "contents:write"],
+        "automations": ["push-branches", "create-pr", "auto-review"]
+      },
+      "container": {
+        "image": "whereat-dev:latest",
+        "ports": ["3001"],
+        "env": ["GITHUB_TOKEN", "DEV_ROLE=backend"]
+      }
+    },
+    {
+      "id": "dev-agent-2",
+      "name": "Developer 2",
+      "role": "Frontend Development",
+      "tasks": [
+        "UI components",
+        "User flows",
+        "Client-side logic",
+        "Performance optimization"
+      ],
+      "github": {
+        "permissions": ["pull_requests:write", "contents:write"],
+        "automations": ["push-branches", "create-pr", "auto-review"]
+      },
+      "container": {
+        "image": "whereat-dev:latest",
+        "ports": ["3002"],
+        "env": ["GITHUB_TOKEN", "DEV_ROLE=frontend"]
+      }
+    },
+    {
+      "id": "security-agent",
+      "name": "Security Specialist",
+      "role": "Code & Dependency Security",
+      "tasks": [
+        "Security code review",
+        "Dependency scanning",
+        "CVE detection",
+        "Compliance checks"
+      ],
+      "github": {
+        "permissions": ["issues:write", "security_events:read"],
+        "automations": ["create-security-issues", "flag-vulnerabilities"]
+      },
+      "container": {
+        "image": "whereat-security:latest",
+        "ports": ["3003"],
+        "env": ["GITHUB_TOKEN", "SNYK_TOKEN"]
+      }
+    },
+    {
+      "id": "qa-agent",
+      "name": "QA/Testing",
+      "role": "Quality Assurance & Testing",
+      "tasks": [
+        "Integration testing",
+        "Regression testing",
+        "Performance testing",
+        "Test report generation"
+      ],
+      "github": {
+        "permissions": ["issues:write", "pull_requests:read"],
+        "automations": ["create-test-reports", "comment-on-pr"]
+      },
+      "container": {
+        "image": "whereat-qa:latest",
+        "ports": ["3004"],
+        "env": ["GITHUB_TOKEN", "TEST_ENV=staging"]
+      }
+    }
+  ],
+  "workflow": {
+    "stages": [
+      {
+        "name": "Initialize",
+        "agents": ["pm-agent"],
+        "parallel": false
+      },
+      {
+        "name": "Development",
+        "agents": ["dev-agent-1", "dev-agent-2", "security-agent"],
+        "parallel": true
+      },
+      {
+        "name": "Testing",
+        "agents": ["qa-agent"],
+        "parallel": false
+      },
+      {
+        "name": "Release",
+        "agents": ["pm-agent"],
+        "parallel": false
+      }
+    ]
+  },
+  "github": {
+    "owner": "tyler",
+    "repo": "whereat-multiagent",
+    "branch": "main",
+    "features": [
+      "feature/location-service",
+      "feature/user-auth",
+      "feature/ui-dashboard"
+    ]
+  }
+}
